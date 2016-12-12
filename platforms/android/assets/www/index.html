@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />--> <!-- KOMMENTOITU -->
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+    
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="https://code.jquery.com/jquery-2.1.4.js"
+ integrity="sha256-siFczlgw4jULnUICcdm9gjQPZkw/YPDqhQ9+nAOScE4="
+ crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>Hello World</title>
+</head>
+
+<body>
+    <div data-role="page" id="page-1"> <!-- PAGE 1 -->
+        <div data-role="header">
+            <h1>City Info</h1>
+
+            <div data-role="navbar" data-theme="a" class="the-nav">
+                <ul>
+                    <li class="the-inline"><a href="#page-1" data-role="button" class="ui-btn ui-icon-location ui-btn-icon-top">Search</a></li>
+                    <li class="the-inline"><a href="#page-2" data-role="button" class="ui-btn ui-icon-camera ui-btn-icon-top">Pictures</a></li>
+                    <li class="the-inline"><a href="#page-3" data-role="button" class="ui-btn ui-icon-info ui-btn-icon-top">Wikipedia</a></li>
+                    <li class="the-inline"><a href="#page-4" data-role="button" class="ui-btn ui-icon-cloud ui-btn-icon-top">Weather</a></li>
+                </ul>
+            </div>
+        </div> <!-- /header -->
+        <div role="main" class="ui-content ui-body-a" id="page-1">
+            
+<!--
+            <div class="ui-field-contain">
+                <label for="autocomplete" style="font-size: 18px;">Enter city:</label>
+                <input type="text" name="autocomplete" id="autocomplete" value="">
+            </div>
+-->
+            <form>
+                <input type="text" id="autocomplete" data-clear-btn="true" placeholder="Search for city" />            
+            </form>
+            
+            <div id="map"></div>
+            
+
+        </div> <!-- /content -->
+        <div data-role="footer">
+            <h4>City Info</h4>
+        </div> <!-- /footer -->
+    </div>                             <!-- PAGE 1 ends-->
+
+
+    <div data-role="page" id="page-2"> <!-- PAGE 2 -->
+        <div data-role="header">
+            <h1>City Info</h1>
+
+            <div data-role="navbar" data-theme="a" class="the-nav">
+                <ul>
+                    <li class="the-inline"><a href="#page-1" data-role="button" class="ui-btn ui-icon-location ui-btn-icon-top">Search</a></li>
+                    <li class="the-inline"><a href="#page-2" data-role="button" class="ui-btn ui-icon-camera ui-btn-icon-top">Pictures</a></li>
+                    <li class="the-inline"><a href="#page-3" data-role="button" class="ui-btn ui-icon-info ui-btn-icon-top">Wikipedia</a></li>
+                    <li class="the-inline"><a href="#page-4" data-role="button" class="ui-btn ui-icon-cloud ui-btn-icon-top">Weather</a></li>
+                </ul>
+            </div>
+        </div> <!-- /header -->
+        <div role="main" class="ui-content ui-body-a">
+            
+            <object type="text/html" id="bing-search" data="" style="width:100%;height:100%;overflow:auto">
+            </object>
+
+        </div> <!-- /content -->
+        <div data-role="footer">
+            <h4>City Info</h4>
+        </div> <!-- /footer -->
+    </div>                             <!-- PAGE 2 ends-->
+
+
+    <div data-role="page" id="page-3"> <!-- PAGE 3 -->
+        <div data-role="header">
+            <h1>City Info</h1>
+
+            <div data-role="navbar" data-theme="a" class="the-nav">
+                <ul>
+                    <li class="the-inline"><a href="#page-1" data-role="button" class="ui-btn ui-icon-location ui-btn-icon-top">Search</a></li>
+                    <li class="the-inline"><a href="#page-2" data-role="button" class="ui-btn ui-icon-camera ui-btn-icon-top">Pictures</a></li>
+                    <li class="the-inline"><a href="#page-3" data-role="button" class="ui-btn ui-icon-info ui-btn-icon-top">Wikipedia</a></li>
+                    <li class="the-inline"><a href="#page-4" data-role="button" class="ui-btn ui-icon-cloud ui-btn-icon-top">Weather</a></li>
+                </ul>
+            </div>
+        </div> <!-- /header -->
+        <div role="main" class="ui-content ui-body-a">
+            <br>
+            <object type="text/html" id="wiki-search" data="" style="width:100%; height: 100%;overflow:auto;">
+            </object>
+            
+            <!--
+            <iframe id="browser" width="90%" height="400"></iframe>
+            
+            <div id="wiki-content">    
+            </div>
+            -->
+ 
+
+        </div> <!-- /content -->
+        <div data-role="footer">
+            <h4>City Info</h4>
+        </div> <!-- /footer -->
+    </div>                             <!-- PAGE 3 ends-->
+
+
+    <div data-role="page" id="page-4"> <!-- PAGE 4 -->
+        <div data-role="header">
+            <h1>City Info</h1>
+
+            <div data-role="navbar" data-theme="a" class="the-nav">
+                <ul>
+                    <li class="the-inline"><a href="#page-1" data-role="button" class="ui-btn ui-icon-location ui-btn-icon-top">Search</a></li>
+                    <li class="the-inline"><a href="#page-2" data-role="button" class="ui-btn ui-icon-camera ui-btn-icon-top">Pictures</a></li>
+                    <li class="the-inline"><a href="#page-3" data-role="button" class="ui-btn ui-icon-info ui-btn-icon-top">Wikipedia</a></li>
+                    <li class="the-inline"><a href="#page-4" data-role="button" class="ui-btn ui-icon-cloud ui-btn-icon-top">Weather</a></li>
+                </ul>
+            </div>
+        </div> <!-- /header -->
+        <div role="main" class="ui-content ui-body-a">
+            <div id="wth-bg-div">
+                <div id="wth-div">
+                    <table>
+                        <tr>
+                            <th colspan="2">
+                                <h1 id="wth-city"></h1>
+                            </th>      
+                        </tr>
+                        <tr>
+                            <td class="wth-td">
+                                <img id="wth-img" src="" alt="weather-icon">
+                            </td>
+                            <td class="wth-td">
+                                <h1 id="wth-desc"></h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="wth-td">
+                                <h1 id="wth-cels"></h1>
+                            </td>
+                            <td class="wth-td">
+                                <h1 id="wth-wind"></h1>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div> <!-- /content -->
+        <div data-role="footer">
+            <h4>City Info</h4>
+        </div> <!-- /footer -->
+    </div>                             <!-- PAGE 4 ends-->
+
+<!-- SCRIPTS -->
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript">
+
+
+    $(document).on("pagecreate", function() {	
+        $(document).on("pagecontainershow", function(){
+            ScaleContentToDevice();        
+        });
+
+        $(window).on("resize orientationchange", function(){
+            ScaleContentToDevice();
+        });
+
+        function ScaleContentToDevice(){
+            scroll(0, 0);
+            var content = $.mobile.getScreenHeight() - $(".ui-header").outerHeight() - $(".ui-footer").outerHeight() - $(".ui-content").outerHeight() + $(".ui-content").height();
+            $(".ui-content").height(content);
+        }
+    }); // page create function ends
+    
+    // VARIABLES    
+    var autocomplete = document.getElementById("autocomplete");
+    var componentForm = {
+        locality: 'long_name',
+        country: 'long_name',
+    };
+    
+    var search_term;
+    var bing_url = "http://www.bing.com/images/search?q=helsinki&go=Search&qs=n&form=QBILPG&pq=helsinki&sc=8-8&sp=-1&sk=";
+    var bing_new_url;
+    var bing_search;
+
+    var wiki_url = "https://en.m.wikipedia.org/wiki/";
+    var wiki_new_url;
+    var wiki_search;
+   
+    var lat = 20;
+    var lon = 20;
+    
+    var wth_city;
+    var wth_url;
+    var wth_icon_url = "";
+    var wth_icon;
+    
+    //AUTOCOMPLETE
+    function initAutocomplete() {
+
+    // Create the autocomplete object, restricting the search to cities
+    autocomplete = new google.maps.places.Autocomplete(
+        autocomplete,
+        {types: ['(cities)']});
+
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    autocomplete.addListener('place_changed', getValue);
+    }
+
+    function getValue() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+        console.log(place);
+        
+        lat = place.geometry.location.lat();
+        lon = place.geometry.location.lng();
+        
+        var mapOptions = {
+            center: new google.maps.LatLng(lat, lon),
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        search_term = place.address_components[0].long_name;
+        
+        // open bimg image search
+        bing_new_url =bing_url.replace("helsinki", search_term);
+        //console.log(bing_new_url);
+        bing_search = $("#bing-search").attr("data", bing_new_url);
+        //console.log(bing_new_url);
+        
+        // open wikipedia searched city's page
+        wiki_new_url = wiki_url + search_term;
+        //console.log(wiki_new_url);
+        wiki_search = $("#wiki-search").attr("data", wiki_new_url);
+        //console.log(wiki_search);         
+        
+        
+        $("#wth-city").text(search_term);
+        
+        app.initialize();    
+        
+    } // getValue function ends
+    
+    
+    
+
+</script>  
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUmWrbNFCTVaZTcgo-lZp41XwPH3S30_w&libraries=places&callback=initAutocomplete" async defer>
+</script>
+</body>
+</html>
+
+
+
+
+
